@@ -1,8 +1,6 @@
 from ..forces import force
 import numpy as np
-import numba
 
-@numba.njit
 def compute_energy(mass, particles, energy):
     energy[:] = 0.
     N = energy.shape[0]

@@ -4,6 +4,7 @@
 from scipy import misc
 import numpy as np
 
+
 class image(object):
     """
     """

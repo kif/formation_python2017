@@ -1,6 +1,7 @@
 import abc
 import numpy as np
 
+
 class convolution:
     __metaclass__ = abc.ABCMeta
 
@@ -28,6 +29,7 @@ class mean(convolution):
         fun = getattr(kernels, self.fun(image))
         return type(image)(from_array=fun(image.pixels))
 
+
 class laplacien(convolution):
     """
     Definie l'operateur laplacien comme convolution : permet de detecter les bords dans une image
@@ -35,6 +37,7 @@ class laplacien(convolution):
     def convolve( self, image ):
         fun = getattr(kernels, self.fun(image))
         return type(image)(from_array=fun(image.pixels))
+
 
 class matrix(convolution):
     """
@@ -48,6 +51,7 @@ class matrix(convolution):
         fun = getattr(kernels, self.fun(image))
         return type(image)(from_array=fun(image.pixels, self.__convolution_array__))
 
+
 def simple_bench(title, function, n):
     from time import time
     function() # warmup
@@ -59,6 +63,7 @@ def simple_bench(title, function, n):
         timings.append(end -start)
     #print('[{}]: min: {}s, max: {}s, median: {}s, average: {}s'.format(title, min(timings), max(timings), sorted(timings)[n//2], sum(timings)/n))
     print('[{}]: {}s'.format(title, sorted(timings)[n//2]))
+
 
 if __name__ == '__main__':
     import sys

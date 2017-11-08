@@ -1,17 +1,27 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
+import time
 import nbody
+import cProfile
 #from nbody.naive import compute_energy
 from nbody.barnes_hut_array import compute_energy
 
 mass, particles = nbody.init_solar_system()
 energy = np.zeros_like(particles)
 
-def animate(i):
-    for t in range(5):
+def animate(i, N=5, avg=[]):
+    t0 = time.time()
+    #prof = cProfile.Profile()
+    #prof.enable(subcalls=True, builtins=True)
+    for t in range(N):
         time_method.update(mass, particles)
+    #prof.disable()
+    #prof.print_stats()
+    exec_time =1e3*(time.time()-t0)/N
+    avg.append(exec_time)
+    if (len(avg)%10==0):
+        print("%i \t last: %.3fms \taverage: %.3fms" % (len(avg), exec_time, sum(avg)/len(avg)))
     scatter.set_offsets(particles[:, :2])
     return scatter,
 

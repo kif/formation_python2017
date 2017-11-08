@@ -6,6 +6,7 @@ from scipy import misc
 import numpy as np
 import image as img
 
+
 class gray_image(img.image):
     """
     """

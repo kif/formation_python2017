@@ -19,10 +19,11 @@ def convolve_mean2(double[:, ::1] image):
     out_image = np.empty((height-2,width-2))
     cdef double[:, ::1] vout = out_image
 
-    for i in prange(1,width-1, nogil=True):
-        for j in range(1,height-1):
+    for i in prange(1, width-1, nogil=True):
+        for j in range(1, height-1):
             vout[i-1,j-1] = 0.25*(image[i-1,j]+image[i+1,j]+image[i,j-1]+image[i,j+1])
     return out_image
+
 
 def convolve_mean3(double[:, :, ::1] image):
     cdef:
@@ -39,6 +40,7 @@ def convolve_mean3(double[:, :, ::1] image):
             for k in range(dim):
                 vout[i-1,j-1,k] = 0.25*(image[i-1,j,k]+image[i+1,j,k]+image[i,j-1,k]+image[i,j+1,k])
     return out_image
+
 
 def convolve_laplacien2(double[:, ::1] image):
     cdef:
@@ -57,6 +59,7 @@ def convolve_laplacien2(double[:, ::1] image):
     valmax = max(1.,valmax)+1.E-9
     out_image *= 1./valmax
     return out_image
+
 
 def convolve_laplacien3(double[:, :, ::1] image):
     cdef:
@@ -77,6 +80,7 @@ def convolve_laplacien3(double[:, :, ::1] image):
     valmax = max(1.,valmax)+1.E-9
     out_image *= 1./valmax
     return out_image
+
 
 def convolve_matrix2(double[:, ::1] image, double[:, ::1] convolution_array):
     cdef:
